@@ -62,12 +62,13 @@ public class GerenciadorAcademia {
 	}
 	
 	public void vincularFichaTreino(int idAluno, int IdInstrutor, TipoTreino treino) {
-		if(this.buscarAlunoId(idAluno) == null || this.buscarInstrutorId(IdInstrutor) == null) {
-			System.out.println("Aluno ou instrutor nao encontrado");
+		Aluno aluno = this.buscarAlunoId(idAluno);
+		Instrutor instrutor = this.buscarInstrutorId(IdInstrutor);
+		if(aluno == null || instrutor == null) {
+			System.out.println("Instrutor ou aluno nao encontrado");
 		}
 		else {
-			System.out.println("Inciando uma nova ficha de treino para o aluno");
-			
+			FichaTreino novaFicha = new FichaTreino(treino, instrutor);
 		}
 	}
 }
