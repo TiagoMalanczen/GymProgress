@@ -3,10 +3,14 @@ package br.com.malanczen.servico;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.malanczen.enums.*;
+import br.com.malanczen.enums.Especialidades;
+import br.com.malanczen.enums.GrupoMuscular;
+import br.com.malanczen.enums.TipoTreino;
 import br.com.malanczen.modelo.Aluno;
 import br.com.malanczen.modelo.Exercicio;
+import br.com.malanczen.modelo.FichaTreino;
 import br.com.malanczen.modelo.Instrutor;
+import br.com.malanczen.modelo.ItemTreino;
 
 public class GerenciadorAcademia {
 	//===========Atributos===========
@@ -69,6 +73,32 @@ public class GerenciadorAcademia {
 		}
 		else {
 			FichaTreino novaFicha = new FichaTreino(treino, instrutor);
+			aluno.adicionarFicha(novaFicha);
+			System.out.println("Ficha "+ treino + " vinculada ao aluno " + aluno.getNome());
+		}
+	}
+	
+	public void adicionarExerciciosNaFicha(int idAluno, TipoTreino treino, String nomeExercicio, int series, int repeticoes) {
+		Aluno aluno = this.buscarAlunoId(idAluno);
+		Exercicio exercicio = this.buscarExercicioNome(nomeExercicio);
+		FichaTreino fichaTreino = aluno.buscarFichaTreino(treino);
+		
+		if(aluno == null) {
+			System.out.println("Aluno nao encontrado");
+		}
+		else {
+			if(fichaTreino == null) {
+				System.out.println("Tipo de treino nao encontrado ou nao vinculado ao aluno " + aluno.getNome());
+			}
+			else {
+				if(exercicio == null) {
+					System.out.println("Exercicio nao encontrado");
+				}
+				else {
+					System.out.println("Adicionando " + nomeExercicio + " a ficha de treino " + aluno.getFichas() + " do aluno " + aluno.getNome());
+					ItemTreino novoTreino = new ItemTreino(exercicio, series, repeticoes);
+				}
+			}
 		}
 	}
 }
