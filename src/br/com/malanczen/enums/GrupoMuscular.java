@@ -4,6 +4,6 @@ public enum GrupoMuscular {
 	PEITO,
 	COSTAS,
 	PERNAS, 
-	OMBROM, 
+	OMBROS, 
 	BRACOS;
 }

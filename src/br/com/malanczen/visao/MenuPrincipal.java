@@ -113,7 +113,7 @@ public class MenuPrincipal {
 			case 4:
 				
 			break;
-			//Opcao para adicionar treino a ficha ja existente
+			//Opcao para adicionar treino a ficha ja existente 
 			case 5:
 				
 			break;

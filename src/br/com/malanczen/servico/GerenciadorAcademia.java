@@ -80,25 +80,47 @@ public class GerenciadorAcademia {
 	
 	public void adicionarExerciciosNaFicha(int idAluno, TipoTreino treino, String nomeExercicio, int series, int repeticoes) {
 		Aluno aluno = this.buscarAlunoId(idAluno);
+		if(aluno == null) {
+			System.out.println("Aluno nao econtrado");
+			return;
+		}
 		Exercicio exercicio = this.buscarExercicioNome(nomeExercicio);
+		if(exercicio == null) {
+			System.out.println("Exercicio nao encontrado");
+			return;
+		}
 		FichaTreino fichaTreino = aluno.buscarFichaTreino(treino);
+		if(fichaTreino == null) {
+			System.out.println("Ficha de Treino nao encontrada");
+			return;
+		}
+		
+		ItemTreino itemTreino = new ItemTreino(exercicio, series, repeticoes);
+		fichaTreino.adicionarItem(itemTreino);
+	}
+	
+	public String gerarRelatorioEvolucao(int idAluno) {
+		Aluno aluno = this.buscarAlunoId(idAluno);
 		
 		if(aluno == null) {
-			System.out.println("Aluno nao encontrado");
+			return "Aluno nao encontrado";
 		}
-		else {
-			if(fichaTreino == null) {
-				System.out.println("Tipo de treino nao encontrado ou nao vinculado ao aluno " + aluno.getNome());
-			}
-			else {
-				if(exercicio == null) {
-					System.out.println("Exercicio nao encontrado");
-				}
-				else {
-					System.out.println("Adicionando " + nomeExercicio + " a ficha de treino " + aluno.getFichas() + " do aluno " + aluno.getNome());
-					ItemTreino novoTreino = new ItemTreino(exercicio, series, repeticoes);
-				}
-			}
+		double imc = aluno.calcularIMC();
+		String resultado;
+		if(imc < 18.5) {
+			resultado = "abaixo do peso";
 		}
+		else if(imc >= 18.5 && imc < 25) {
+			resultado = "em peso normal";
+		}
+		else if(imc >= 25 && imc < 30) {
+			resultado = "sobrepeso";
+		}
+		else{
+			resultado = " de obesidade";
+		}
+		String outrosDados = "Relatorio de  Evolucao Fisica : \n Aluno :" + aluno.getNome() + "\n Matricula : "+aluno.getDataMatricula() + " \nIMC : " + imc;
+		
+		return outrosDados+ "\n Grau " + resultado;
 	}
 }
