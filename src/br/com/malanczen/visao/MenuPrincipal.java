@@ -2,8 +2,7 @@ package br.com.malanczen.visao;
 
 import java.util.Scanner;
 
-import br.com.malanczen.enums.Especialidades;
-import br.com.malanczen.enums.GrupoMuscular;
+import br.com.malanczen.enums.*;
 import br.com.malanczen.servico.GerenciadorAcademia;
 
 
@@ -15,8 +14,7 @@ public class MenuPrincipal {
 		GerenciadorAcademia gerenciador = new GerenciadorAcademia();
 		
 		int opcao = -1;
-		//===========Tabela Principal===========
-		
+		//===========Tabela Principal===========	
 		do {
 		System.out.println("Digite a opcao desejada");
 		System.out.println("========== GYMPROGRESS - MENU ==========\r\n"
@@ -109,12 +107,64 @@ public class MenuPrincipal {
 			gerenciador.cadastrarExercicio(nomeExercicio, gM);
 			break;
 			
-			//Opcao para vincular/montar fica de treino para aluno
+			//Opcao para vincular/montar ficha de treino para aluno
 			case 4:
+				System.out.println("Opcao de vincular/montar ficha de treino  acessada \n");
+				System.out.println("Digite os dados solicitados: \n");
+				
+				System.out.println("Digite o id do aluno:\n");
+				int idAluno = scanner.nextInt();
+				scanner.nextLine();
+				
+				System.out.println("Digite o id do instrutor: \n");
+				int idInstrutor = scanner.nextInt();
+				scanner.nextLine();
+				
+				System.out.print("Tipo de treino: \n");
+				System.out.println("Opcoes Permitidas:");
+				System.out.println("Treino_A");
+				System.out.println("Treino_B");
+				System.out.println("Treino_C");
+				String tp = scanner.nextLine().toUpperCase().trim();
+				
+				TipoTreino tipoTreino = TipoTreino.valueOf(tp);
+				
+				gerenciador.vincularFichaTreino(idAluno, idInstrutor, tipoTreino);
 				
 			break;
 			//Opcao para adicionar treino a ficha ja existente 
 			case 5:
+				System.out.println("Opcao de adicionar treino a ficha existente acessada \n");
+				System.out.println("Digite os dados solicitados: \n");
+				
+				System.out.println("Digite o id do aluno:\n");
+				int idAl = scanner.nextInt();
+				scanner.nextLine();
+				
+				System.out.print("Tipo de treino: \n");
+				System.out.println("Opcoes Permitidas:");
+				System.out.println("Treino_A");
+				System.out.println("Treino_B");
+				System.out.println("Treino_C");
+				String tpo = scanner.nextLine().toUpperCase().trim();
+				
+				TipoTreino tipTreino = TipoTreino.valueOf(tpo);
+				
+				System.out.println("Exercicios disponiveis");
+				System.out.println("Nome do exercicio = ");
+				gerenciador.listarExercicios();
+				
+				String nomeEx = scanner.nextLine();
+				
+				System.out.println("Quntidade de series = ");
+				int quantiaSeries = scanner.nextInt();
+				scanner.nextLine();
+				
+				System.out.println("Quntidade de repeticoes = ");
+				int quantiReps = scanner.nextInt();
+				scanner.nextLine();
+				
+				gerenciador.adicionarExerciciosNaFicha(idAl, tipTreino, nomeEx, quantiaSeries, quantiReps);
 				
 			break;
 			//Opcao para exibir ficha de treino do aluno
@@ -123,6 +173,14 @@ public class MenuPrincipal {
 			break;
 			//Opcao para calcular IMC e dados do aluno
 			case 7:
+				System.out.println("Opcao de calcular IMC do aluno e gerar relatorio acessada \n");
+				System.out.println("Digite os dados solicitados: \n");
+				
+				System.out.println("Digite o id do aluno:\n");
+				int idAlu = scanner.nextInt();
+				scanner.nextLine();
+				
+				System.out.println(gerenciador.gerarRelatorioEvolucao(idAlu));
 				
 			break;
 			//Opcao para encerrar o programa
