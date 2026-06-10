@@ -26,11 +26,11 @@ public class GerenciadorAcademia {
 		
 	}
 	//===========Metodos===========
+	//Cadastro
 	public void cadastrarAluno(String nome, String dataMatricula, double peso, double altura) {
 		Aluno novoALuno = new Aluno(nome, dataMatricula, peso, altura);
 		this.alunos.add(novoALuno);
 	}
-	
 	public void cadastrarInstrutor(String nome, String dataMatricula, String cref , Especialidades especialidade) {
 		Instrutor novoInstrutor = new Instrutor(nome, dataMatricula, cref, especialidade);
 		this.instrutores.add(novoInstrutor);
@@ -40,6 +40,7 @@ public class GerenciadorAcademia {
 		this.exercicios.add(novoExercicio);
 	}
 	
+	//Busca
 	public Aluno buscarAlunoId(int id) {
 		for(Aluno al : alunos) {
 			if(al.getId() == id) {
@@ -65,6 +66,7 @@ public class GerenciadorAcademia {
 		return null;
 	}
 	
+	//Outros
 	public void vincularFichaTreino(int idAluno, int IdInstrutor, TipoTreino treino) {
 		Aluno aluno = this.buscarAlunoId(idAluno);
 		Instrutor instrutor = this.buscarInstrutorId(IdInstrutor);
@@ -77,7 +79,6 @@ public class GerenciadorAcademia {
 			System.out.println("Ficha "+ treino + " vinculada ao aluno " + aluno.getNome());
 		}
 	}
-	
 	public void adicionarExerciciosNaFicha(int idAluno, TipoTreino treino, String nomeExercicio, int series, int repeticoes) {
 		Aluno aluno = this.buscarAlunoId(idAluno);
 		if(aluno == null) {
@@ -97,8 +98,8 @@ public class GerenciadorAcademia {
 		
 		ItemTreino itemTreino = new ItemTreino(exercicio, series, repeticoes);
 		fichaTreino.adicionarItem(itemTreino);
+		System.out.println("Exercicio adicionado a fihca de " + aluno.getNome() + " com sucesso");
 	}
-	
 	public String gerarRelatorioEvolucao(int idAluno) {
 		Aluno aluno = this.buscarAlunoId(idAluno);
 		
@@ -122,5 +123,35 @@ public class GerenciadorAcademia {
 		String outrosDados = "Relatorio de  Evolucao Fisica : \n Aluno :" + aluno.getNome() + "\n Matricula : "+aluno.getDataMatricula() + " \nIMC : " + imc;
 		
 		return outrosDados+ "\n Grau " + resultado;
+	}
+	
+	//Listar
+	public void listarExercicios() {
+		for(Exercicio ex : exercicios) {
+			System.out.println("Nome = " + ex.getNome());
+			System.out.println("Grupo muscular correspondente = " + ex.getGrupoMuscular());
+			System.out.println();
+		}
+	}
+	public void listarInstrutores() {
+		for(Instrutor inst : this.instrutores) {
+			System.out.println("Id = " + inst.getId());
+			System.out.println("Cref = " + inst.getCref());
+			System.out.println("Nome = " + inst.getNome());
+			System.out.println("Especialidade = " + inst.getEspecialidade());
+			System.out.println("Data matricula = " + inst.getDataMatricula());
+		}
+	}
+	public void listarAluno() {
+		for(Aluno al: this.alunos) {
+			System.out.println("Id do aluno = " +al.getId());
+			System.out.println("Altura = " +al.getAltura());
+			System.out.println("Data da matricula = " +al.getDataMatricula());
+			System.out.println("Nome = " +al.getNome());
+			System.out.println("Peos = " +al.getPeso());
+		}
+	
+	
+	
 	}
 }
