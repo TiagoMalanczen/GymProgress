@@ -124,7 +124,36 @@ public class GerenciadorAcademia {
 		
 		return outrosDados+ "\n Grau " + resultado;
 	}
-	
+	public void imprimirFIchaCompletaAluno(int idAluno, TipoTreino treino) {
+		Aluno aluno = this.buscarAlunoId(idAluno);
+		
+	    if (aluno == null) {
+	        System.out.println("Aluno não encontrado.");
+	        return;
+	    }
+	    FichaTreino ficha = aluno.buscarFichaTreino(treino);
+	    if (ficha == null) {
+	        System.out.println("O aluno " + aluno.getNome() + " não possui a ficha " + treino + " vinculada.");
+	        return;
+	    }
+	    
+	    System.out.println("\n========================================");
+	    System.out.println("FICHA DE TREINO: " + treino);
+	    System.out.println("Aluno: " + aluno.getNome());
+	    System.out.println("Instrutor Responsável: " + ficha.getInstrutorResponsavel().getNome());
+	    System.out.println("----------------------------------------");
+	    
+	    
+	    if (ficha.getListaItens().isEmpty()) {
+	        System.out.println("Nenhum exercício adicionado a esta ficha ainda.");
+	    } else {
+	        for (ItemTreino item : ficha.getListaItens()) {
+	            System.out.println("- " + item.getExercicio().getNome() + " | " + item.getSeries() + "x" + item.getRepeticoes());
+	        }
+	    }
+	    System.out.println("========================================");
+	    
+	}
 	//Listar
 	public void listarExercicios() {
 		for(Exercicio ex : exercicios) {
